@@ -1,15 +1,23 @@
 class CliTodoApp < Formula
   desc "Feature-rich, cross-platform CLI Todo app written in modern C++"
   homepage "https://github.com/GourangaDasSamrat/cli-todo-app"
-  url "https://github.com/GourangaDasSamrat/cli-todo-app/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "8a4fee6c947026205d1c29abc5acf517832a823b0e0835f179c392bc91d16b1e"
+  version "1.0.1"
   license "MIT"
 
-  depends_on "cmake" => :build
+  if Hardware::CPU.arm?
+    url "https://github.com/GourangaDasSamrat/cli-todo-app/releases/download/v1.0.1/todo-app-v1.0.1-macos-arm64"
+    sha256 "af94d193a98c2ebddc0163d2290c1659ffa165ba91fcfe873e15cd167df1cf77"
+  else
+    url "https://github.com/GourangaDasSamrat/cli-todo-app/releases/download/v1.0.1/todo-app-v1.0.1-macos-amd64"
+    sha256 "af94d193a98c2ebddc0163d2290c1659ffa165ba91fcfe873e15cd167df1cf77"
+  end
 
   def install
-    system "cmake", "-S", ".", "-B", "build", "-DCMAKE_BUILD_TYPE=Release"
-    system "cmake", "--build", "build"
-    bin.install "build/todo-app"
+    bin.install "todo-app-v1.0.1-macos-arm64" => "todo-app" if Hardware::CPU.arm?
+    bin.install "todo-app-v1.0.1-macos-amd64" => "todo-app" if Hardware::CPU.intel?
+  end
+
+  test do
+    system "#{bin}/todo-app", "--version"
   end
 end
