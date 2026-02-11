@@ -24,18 +24,23 @@ brew install <formula-name>
 
 A feature-rich, cross-platform command-line Todo application written in modern C++ (C++17).
 
-**Features:**
-- ✅ Task categories and priorities
-- 📅 Due date management
-- 💾 Persistent storage
-- 🎨 Clean terminal-based user interface
-
 **Installation:**
 ```bash
 brew install cli-todo-app
 ```
 
 **Source:** [github.com/GourangaDasSamrat/cli-todo-app](https://github.com/GourangaDasSamrat/cli-todo-app)
+
+### todo-cli-go
+
+A powerful, feature-rich command-line todo application built with Go.
+
+**Installation:**
+```bash
+brew install todo-cli
+```
+
+**Source:** [github.com/GourangaDasSamrat/todo-cli-go](https://github.com/GourangaDasSamrat/todo-cli-go)
 
 ## 🔧 Development
 
