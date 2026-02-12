@@ -1,15 +1,25 @@
 class TodoCli < Formula
-  desc "A simple Todo CLI built in Go"
+  desc "A simple and efficient CLI tool for managing your todos"
   homepage "https://github.com/GourangaDasSamrat/todo-cli-go"
-  url "https://github.com/GourangaDasSamrat/todo-cli-go/releases/download/v1.0.0/todo-v1.0.0-darwin-amd64.tar.gz"
-  sha256 "02631fd71136a464c360b2d007f0fbe5b0f5b2273f45395168a064c1519042b9" # The action will update this automatically later
+  version "v1.0.1"
   license "MIT"
 
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/GourangaDasSamrat/todo-cli-go/releases/download/v1.0.1/todo-v1.0.1-darwin-amd64.tar.gz"
+      sha256 "43574849f89839a87396417bdbd5138d12089e77487a915ba111247e0421f68d"
+    else
+      url "https://github.com/GourangaDasSamrat/todo-cli-go/releases/download/v1.0.1/todo-v1.0.1-darwin-arm64.tar.gz"
+      sha256 "1561a5d4405de444194e30ab5945ef731a3774bb7a66245f5c0bf69c0580d9a8"
+    end
+  end
+
   def install
-    bin.install "todo-darwin-amd64" => "todo"
+    bin.install "todo-darwin-amd64" => "todo" if Hardware::CPU.intel?
+    bin.install "todo-darwin-arm64" => "todo" if Hardware::CPU.arm?
   end
 
   test do
-    system "#{bin}/todo", "--version"
+    assert_match "Todo CLI v1.0.1", shell_output("#{bin}/todo --version")
   end
 end
